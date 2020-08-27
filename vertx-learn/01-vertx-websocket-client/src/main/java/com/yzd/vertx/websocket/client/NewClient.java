@@ -17,15 +17,17 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 @Slf4j
 public class NewClient extends AbstractVerticle {
-  private static CountDownLatch downLatch = new CountDownLatch(10000);
+  private static CountDownLatch downLatch = new CountDownLatch(3000);
   private static AtomicInteger failedCount=new AtomicInteger(0);
   // Convenience method so you can run it in your IDE
   public static void main(String[] args) throws InterruptedException {
     Vertx vertx = Vertx.vertx();
     vertx.deployVerticle(NewClient.class.getName());
     downLatch.await();
-    vertx.close();
+    //
+    Thread.sleep(2000);
     log.error("FAILED_COUNT:"+failedCount.get());
+    vertx.close();
   }
 
   @Override
@@ -35,8 +37,9 @@ public class NewClient extends AbstractVerticle {
     HttpClient client = vertx.createHttpClient(clientOptions);
     long size = downLatch.getCount();
     for (int i = 0; i < size; i++) {
-      client.webSocket(8080, "localhost", "/some-uri", further -> {
-        downLatch.countDown();
+      client.webSocket(9007, "localhost", "/websocket", further -> {
+      //client.webSocket(9007, "localhost", "/websocket", further -> {
+
         WebSocket channel = further.result();
         if (further.failed()) {
           failedCount.incrementAndGet();
@@ -48,11 +51,13 @@ public class NewClient extends AbstractVerticle {
         }
         channel.handler(data -> {
           log.info("NewClient:Received data:" + data.toString("ISO-8859-1"));
+          downLatch.countDown();
           //主动关闭
           //channel.close();
-          log.error("client size:" + downLatch.getCount());
+          //log.error("client size:" + downLatch.getCount());
         });
-        channel.writeBinaryMessage(Buffer.buffer("NewClient:Hello world:" + System.nanoTime()));
+        //channel.writeBinaryMessage(Buffer.buffer("NewClient:Hello world:" + System.nanoTime()));
+        channel.writeTextMessage("NewClient:Hello world:" + System.nanoTime());
       });
     }
   }
