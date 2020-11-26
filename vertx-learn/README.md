@@ -26,4 +26,8 @@ Vert.x系列（二），编写REST API并解析请求参数
 Vert.x系列（三），加载静态资源文件
 Vert.x系列（四），EventBus事件总线
 Vert.x系列（五），基于EventBus构建分布式应用
+
+Demo:
+requesttime:记录整个流程耗时
+动态模板与静态文件的结合
 ```

@@ -21,6 +21,9 @@ public class NewClient extends AbstractVerticle {
   private static AtomicInteger failedCount=new AtomicInteger(0);
   // Convenience method so you can run it in your IDE
   public static void main(String[] args) throws InterruptedException {
+    //websocket 自定义header
+    //WebSocketConnectOptions addHeader(String key, String value)
+
     Vertx vertx = Vertx.vertx();
     vertx.deployVerticle(NewClient.class.getName());
     downLatch.await();
