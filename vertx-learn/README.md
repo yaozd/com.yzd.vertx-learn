@@ -31,3 +31,5 @@ Demo:
 requesttime:记录整个流程耗时
 动态模板与静态文件的结合
 ```
+
+- [Vertx 3 核心手册之Verticles](https://www.jianshu.com/p/3de20363e95a)
