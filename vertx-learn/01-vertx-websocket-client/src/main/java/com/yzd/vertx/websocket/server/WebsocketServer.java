@@ -10,6 +10,11 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class WebsocketServer extends AbstractVerticle {
+  /**
+   * 启动命令：
+   *  java -cp 01-vertx-websocket-client-1.0.0-SNAPSHOT-fat.jar  com.yzd.vertx.websocket.server.WebsocketServer
+   * @param args
+   */
   public static void main(String[] args) {
     Vertx vertx = Vertx.vertx();
     vertx.deployVerticle(WebsocketServer.class.getName());
