@@ -10,20 +10,24 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class WebsocketServer extends AbstractVerticle {
+  private static final int PORT = Integer.parseInt(System.getProperty("port", "8080"));
+
   /**
    * 启动命令：
-   *  java -cp 01-vertx-websocket-client-1.0.0-SNAPSHOT-fat.jar  com.yzd.vertx.websocket.server.WebsocketServer
+   * java -Dport=8888 -cp 01-vertx-websocket-client-1.0.0-SNAPSHOT-fat.jar  com.yzd.vertx.websocket.server.WebsocketServer
+   *
    * @param args
    */
   public static void main(String[] args) {
     Vertx vertx = Vertx.vertx();
     vertx.deployVerticle(WebsocketServer.class.getName());
+    log.info("Listen port[{}]", PORT);
 
   }
 
   @Override
   public void start() throws Exception {
-    int port = 8080;
+    int port = PORT;
     vertx.createHttpServer().webSocketHandler(ws ->
       ws.handler(data -> {
         log.error("deploymentID:{},binaryHandlerID:{}", context.deploymentID(), ws.binaryHandlerID());
