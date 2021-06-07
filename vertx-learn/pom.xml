@@ -24,7 +24,7 @@
     <junit-jupiter.version>5.4.0</junit-jupiter.version>
     <java.version>1.8</java.version>
     <slf4j.version>1.6.4</slf4j.version>
-    <logback.version>1.0.1</logback.version>
+    <logback.version>1.2.0</logback.version>
     <awaitility.version>3.0.0</awaitility.version>
     <main.verticle>com.yzd.vertx_learn.vertx_learn.MainVerticle</main.verticle>
   </properties>
